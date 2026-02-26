@@ -14,7 +14,11 @@ The purpose is to test if a candidate has the fundamental engineering skills/min
 
 It is also a mini working dry run for the candidate to experience and self-reflect if this is the right fit.
 
-[[_TOC_]]
+## Table of Contents
+
+- [Task 0 – Preparation](#task-0--preparation)
+- [Task 1 – SSH & Upgrade](#task-1--ssh--upgrade)
+- [Task 2 – Install Docker](#task-2--install-docker)
 
 ## Interview Approaches
 
