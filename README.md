@@ -468,9 +468,78 @@ Go Web Hello World!
 Check in the deployment yaml file or the command line into the git repo
 
 ---
-
-
-
+1. Load the go-app:optimized image to kind:
+   ```bash
+   kind load docker-image go-app:optimized --name demo-cluster
+   ```
+2. Crete Kubernetes manifests for deployment and service NodePort 31080:
+   ```bash
+   cd ~/go-web-hello-world
+   mkdir -p k8s
+   ```
+   create k8s/go-web-hello-world.yaml with:
+   ```yaml
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+     name: go-web-hello-world
+   spec:
+     replicas: 1
+     selector:
+       matchLabels:
+         app: go-web-hello-world
+     template:
+       metadata:
+         labels:
+           app: go-web-hello-world
+       spec:
+         containers:
+           - name: app
+             image: go-app:optimized
+             imagePullPolicy: IfNotPresent
+             ports:
+               - containerPort: 8081
+   ---
+   apiVersion: v1
+   kind: Service
+   metadata:
+     name: go-web-hello-world
+   spec:
+     type: NodePort
+     selector:
+       app: go-web-hello-world
+     ports:
+       - name: http
+         port: 8081
+         targetPort: 8081
+         nodePort: 31080
+   ```
+3. Apply it:
+   ```bash
+   kubectl apply -f k8s/go-web-hello-world.yaml
+   ```
+   wait it to be ready:
+   ```bash
+   kubectl rollout status deploy/go-web-hello-world
+   kubectl get pods -o wide
+   kubectl get svc go-web-hello-world
+   ```
+4. Get the node IP:
+   ```bash
+   kubectl get nodes -o wide
+   ```
+   The node IP is: 172.18.0.2
+5. Access the service:
+   ```bash
+   curl -s http://172.18.0.2:31080
+   ```
+   it prints: Go Web Hello World!
+8. Check the deplyment yaml to git:
+   ```bash
+   git add k8s/go-web-hello-world.yaml
+   git commit -m "Add Kubernetes deployment and NodePort service (31080) for Go app"
+   git push origin master
+   ```
 ## **Task 9: Install Kubernetes Dashboard**
 
 Install Headlamp (https://headlamp.dev/) in the cluster using Yaml manifest method (not helm) and expose the service to nodeport 31081.
@@ -484,6 +553,8 @@ Figure out how to generate a token to login to the dashboard.
 Publish the procedure to the git repo.
 
 ---
+1. 
+
 
 ## **Task 10: Build Gogs container image and push it to a container registry**
 
