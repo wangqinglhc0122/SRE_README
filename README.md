@@ -103,11 +103,17 @@ All the following tasks are to be performed in the ubuntu virtual machine, unles
       ```
 ---      
 _What is host machine and guest machine?_
-
+The host machine is the physical computer, my Windows laptop, which runs the hypervisor.
+The guest machine is the VM running Ubuntu inside the hypervisor.
 
 Use an ssh client in the host machine to ssh to the guest machine using public key authentication method.
 
 _What is the IP of the guest machine? And is it accessible from the host machine? What configuration is required in order to have ssh access?_
+The IP of the guest machine can be viewed using:
+```bash
+ip a
+```
+and it is 10.0.2.15.
 
 _What are the difference between NAT and Bridge network?_
 
