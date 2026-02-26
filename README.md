@@ -94,10 +94,14 @@ All the following tasks are to be performed in the ubuntu virtual machine, unles
       uname -r
       ```
    - Upgrade to the latest HWE kernel for Ubuntu 24.04 LTS:
-     
-   
- 
-
+      ```bash
+      sudo apt install --install-recommends linux-generic-hwe-24.04
+      ```
+   - Reboot the VM and then check the kernel version:
+      ```bash
+      uname -r
+      ```
+---      
 _What is host machine and guest machine?_
 
 
