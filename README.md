@@ -16,7 +16,7 @@ It is also a mini working dry run for the candidate to experience and self-refle
 
 ## Table of Contents
 
-- [Task 0 – Preparation](#task-0--preparation)
+- [Task 0 – Preparation](#Task 0: Preparation for the Interview Environment)
 - [Task 1 – SSH & Upgrade](#task-1--ssh--upgrade)
 - [Task 2 – Install Docker](#task-2--install-docker)
 
