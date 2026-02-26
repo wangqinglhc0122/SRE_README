@@ -757,7 +757,52 @@ docker run <parameters ... > <image:tag>
 ```
 
 ---
-1. 
+1. Create the Gogs image build context (embed your existing gogs data):
+   - Stop the gogs container so the sqlite DB is consistent:
+      ```bash
+      docker stop gogs || true
+      ```
+   - Copy your persisted gogs data into the repo build context:
+      ```bash
+      cd ~/go-web-hello-world
+
+      mkdir -p gogs-image
+      rm -rf gogs-image/data
+      cp -a ~/gogs gogs-image/data
+      ```
+2. Add Dockerfile + .dockerignore for the custom Gogs image:
+   - create gogs-image/Dockerfile with:
+      ```dockerfile
+      FROM gogs/gogs:latest
+      
+      USER root
+      
+      # Embed pre-configured Gogs /data (includes repos, users, app.ini, sqlite DB, etc.)
+      COPY data /data
+      
+      # Ensure correct ownership (image typically runs as git user)
+      RUN chown -R git:git /data
+      
+      USER git
+      
+      EXPOSE 3000 22
+      ```
+   - create gogs-image/.dockerignore with:
+      ```gitignore
+      # Avoid copying unnecessary files into the build context
+      **/.DS_Store
+      **/Thumbs.db
+      **/.git
+      ```
+3. Build / Tag / Push to Docker Hub
+   ```bash
+      cd ~/go-web-hello-world
+      
+      docker build -t wangqinglhc0122/gogs:v0.1 -f gogs-image/Dockerfile gogs-image
+      
+      docker login
+      docker push wangqinglhc0122/gogs:v0.1
+   ```
 
 ## **Task 99: Publish your work**
 
