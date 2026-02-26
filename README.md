@@ -41,7 +41,6 @@ The candidate shall prepare the following environment for the interview:
    - Setup username and password
    - Specify virtual hardware: 4 x vCPUs, 8GB RAM and 40GB for the disk
    - Choose NAT for VM network in VM -> Settings -> Network
-5. 
     
 ---
 
