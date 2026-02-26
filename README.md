@@ -102,30 +102,30 @@ All the following tasks are to be performed in the ubuntu virtual machine, unles
       uname -r
       ```
 ---      
-_What is host machine and guest machine?_
-<br>The host machine is the physical computer, my Windows laptop, which runs the hypervisor.
-The guest machine is the VM running Ubuntu inside the hypervisor.
+_Q: What is host machine and guest machine?_
+<br>A: The host machine is the physical computer, my Windows laptop, which runs the hypervisor.
+<br>The guest machine is the VM running Ubuntu inside the hypervisor.
 
-Use an ssh client in the host machine to ssh to the guest machine using public key authentication method.
+_Use an ssh client in the host machine to ssh to the guest machine using public key authentication method._
 
-_What is the IP of the guest machine? And is it accessible from the host machine? What configuration is required in order to have ssh access?_
-The IP of the guest machine can be viewed using:
+_Q: What is the IP of the guest machine? And is it accessible from the host machine? What configuration is required in order to have ssh access?_
+<br>A: The IP of the guest machine can be viewed using:
 ```bash
 ip a
 ```
 and it is 10.0.2.15. Beacuse we are using NAT for the network, the host can not access the guest via its IP. We need to use Port Forwarding.
 
-_What are the difference between NAT and Bridge network?_
-For NAT, the guest get its private IP which is hidden from LAN and port forwarding is needed for the host to access it.
-For bridged network, the guest get real LAN IP and it is directly accessible to the host.
+_Q: What are the difference between NAT and Bridge network?_
+<br>A: For NAT, the guest get its private IP which is hidden from LAN and port forwarding is needed for the host to access it.
+<br>For bridged network, the guest get real LAN IP and it is directly accessible to the host.
 
-_How does the public key authentication method work? Will your private key travel to the remote server for authentication?_
-The public key authentication method generates a pair of PUBLIC and PRIVATE keys. The client signs chellenge using PRIVATE key and the server verifies signature using PUBLIC key. The PRIVATE key does not travel to the remote server.
+_Q: How does the public key authentication method work? Will your private key travel to the remote server for authentication?_
+<br>A: The public key authentication method generates a pair of PUBLIC and PRIVATE keys. The client signs chellenge using PRIVATE key and the server verifies signature using PUBLIC key. The PRIVATE key does not travel to the remote server.
 
 _After ssh via client terminal, upgrade the **Ubuntu system packages (packages pre-installed in the system)** to the latest ([https://ubuntu.com/server/docs/package-management](https://ubuntu.com/server/docs/package-management))._
 
-_Figure out what the **linux kernel version** is and then upgrade the kernel to the **latest LTS Enablement or Hardware Enablement (HWE) stack kernel ([https://ubuntu.com/kernel/lifecycle](https://ubuntu.com/kernel/lifecycle)). What is the kernel version after upgrade?_
-The kernel version after upgrade is:
+_Q: Figure out what the **linux kernel version** is and then upgrade the kernel to the **latest LTS Enablement or Hardware Enablement (HWE) stack kernel ([https://ubuntu.com/kernel/lifecycle](https://ubuntu.com/kernel/lifecycle)). What is the kernel version after upgrade?_
+<br> A:The kernel version after upgrade is:
 ```bash
 6.17.0-14-generic
 ```
