@@ -90,9 +90,9 @@ All the following tasks are to be performed in the ubuntu virtual machine, unles
       ```
 5. Upgrate the Linux kernel to the latest LTS Enablement for Hardware Enablement (HWE) stack level:
    - Check the kernel version:
-   ```bash
-   uname -r
-   ```
+      ```bash
+      uname -r
+      ```
    - Upgrade to the latest HWE kernel for Ubuntu 24.04 LTS:
      
    
