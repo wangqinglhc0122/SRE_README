@@ -125,7 +125,7 @@ _Q: How does the public key authentication method work? Will your private key tr
 _After ssh via client terminal, upgrade the **Ubuntu system packages (packages pre-installed in the system)** to the latest ([https://ubuntu.com/server/docs/package-management](https://ubuntu.com/server/docs/package-management))._
 
 _Q: Figure out what the **linux kernel version** is and then upgrade the kernel to the **latest LTS Enablement or Hardware Enablement (HWE) stack kernel ([https://ubuntu.com/kernel/lifecycle](https://ubuntu.com/kernel/lifecycle)). What is the kernel version after upgrade?_
-<br> A:The kernel version after upgrade is:
+<br>A: The kernel version after upgrade is:
 ```bash
 6.17.0-14-generic
 ```
@@ -134,9 +134,27 @@ _Q: Figure out what the **linux kernel version** is and then upgrade the kernel 
 
 Install Docker Engine from Docker maintained repository (not Ubuntu maintained repository) [https://docs.docker.com/install/linux/docker-ce/ubuntu/](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 
-Run docker hello world to verify the installation.
-
-_What are the relationships of the three components in Docker Engine, aka. docker-ce docker-ce-cli and containerd.io?_
+Install and setup Docker:
+   - Install and enable Docker:
+      ```bash
+      sudo apt update
+      sudo apt install -y docker.io
+      sudo systemctl enable docker
+      sudo systemctl start docker
+      ```
+   - Add user to run docker without sudo:
+      ```bash
+      sudo usermod -aG docker $USER
+      ```
+   - Run docker hello world to verify the setup:
+      ```bash
+      docker run hello-world
+      ```
+      
+_Q: What are the relationships of the three components in Docker Engine, aka. docker-ce docker-ce-cli and containerd.io?_
+<br>A: Docker-ce installs dockerd, the Docker Daemon which is like the brain of Docker, it listens to the docker-ce-cli requests, manages the images and networks and talks to containerd.
+<br>Docker-ce-cli is the remote control which sends HTTP requests to the Docker Daemon.
+<br>Containerd.io is the runtime manager, which pulls images and magage container lifecycle, manages low-level container operations. It is used by Kubernetes
 
 ## **Task 3: Install Gogs (a self-hosted git service)**
 
