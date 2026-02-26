@@ -1,11 +1,4 @@
-# A hands-on project for an EWS SRE
-
-# Table of Contents
-
-## Interview Modes
-- [1. Interview First](#1--interview-first)
-- [2. Project First](#2--project-first)
-
+# A hands-on project for an EWS SRE including these steps:
 ## Tasks
 - [Task 0: Preparation for the Interview Environment](#task-0-preparation-for-the-interview-environment)
 - [Task 1: SSH & Upgrade Operating System](#task-1-ssh--upgrade-operating-system)
