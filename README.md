@@ -36,6 +36,8 @@ The candidate shall prepare the following environment for the interview:
 <ol>
   <li>Download and install the hypervisor VirtualBox. [https://www.virtualbox.org/](https://www.virtualbox.org/)</li>
   <li>Second item</li>
+     * go
+     * go
   <li>Third item</li>
   <li>Fourth item</li>
 </ol>
