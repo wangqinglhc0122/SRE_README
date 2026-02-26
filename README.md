@@ -34,6 +34,8 @@ The candidate shall prepare the following environment for the interview:
 
  ### Setup the Ubuntu Server VM on the Windows laptop:
 1. Download and install the hypervisor VirtualBox: https://www.virtualbox.org/
+   - rEMENVER
+   - H
 2. Second item
 3. Third item
 4. Fourth item
