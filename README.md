@@ -81,6 +81,21 @@ All the following tasks are to be performed in the ubuntu virtual machine, unles
       ```bash
       ssh wangqinglhc0122@127.0.0.1 -p 2222
       ```
+4. Upgrade the Ubuntu system packages:
+   <br>In the VM:
+   ```bash
+   sudo apt update
+   sudo apt full-upgrade -y
+   sudo apt autoremove -y
+   ```
+5. Upgrate the Linux kernel to the latest LTS Enablement for Hardware Enablement (HWE) stack level:
+   - Check the kernel version:
+   ```bash
+   uname -r
+   ```
+   - Upgrade to the latest HWE kernel for Ubuntu 24.04 LTS:
+     
+   
  
 
 _What is host machine and guest machine?_
