@@ -113,15 +113,22 @@ The IP of the guest machine can be viewed using:
 ```bash
 ip a
 ```
-and it is 10.0.2.15.
+and it is 10.0.2.15. Beacuse we are using NAT for the network, the host can not access the guest via its IP. We need to use Port Forwarding.
 
 _What are the difference between NAT and Bridge network?_
+For NAT, the guest get its private IP which is hidden from LAN and port forwarding is needed for the host to access it.
+For bridged network, the guest get real LAN IP and it is directly accessible to the host.
 
 _How does the public key authentication method work? Will your private key travel to the remote server for authentication?_
+The public key authentication method generates a pair of PUBLIC and PRIVATE keys. The client signs chellenge using PRIVATE key and the server verifies signature using PUBLIC key. The PRIVATE key does not travel to the remote server.
 
-After ssh via client terminal, upgrade the **Ubuntu system packages (packages pre-installed in the system)** to the latest ([https://ubuntu.com/server/docs/package-management](https://ubuntu.com/server/docs/package-management)).
+_After ssh via client terminal, upgrade the **Ubuntu system packages (packages pre-installed in the system)** to the latest ([https://ubuntu.com/server/docs/package-management](https://ubuntu.com/server/docs/package-management))._
 
-Figure out what the **linux kernel version** is and then upgrade the kernel to the **latest LTS Enablement or Hardware Enablement (HWE) stack kernel ([https://ubuntu.com/kernel/lifecycle](https://ubuntu.com/kernel/lifecycle)). What is the kernel version after upgrade? 
+_Figure out what the **linux kernel version** is and then upgrade the kernel to the **latest LTS Enablement or Hardware Enablement (HWE) stack kernel ([https://ubuntu.com/kernel/lifecycle](https://ubuntu.com/kernel/lifecycle)). What is the kernel version after upgrade?_
+The kernel version after upgrade is:
+```bash
+6.17.0-14-generic
+```
 
 ## **Task 2: Install Docker Engine**
 
