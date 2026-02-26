@@ -83,11 +83,11 @@ All the following tasks are to be performed in the ubuntu virtual machine, unles
       ```
 4. Upgrade the Ubuntu system packages:
    <br>In the VM:
-   ```bash
-   sudo apt update
-   sudo apt full-upgrade -y
-   sudo apt autoremove -y
-   ```
+      ```bash
+      sudo apt update
+      sudo apt full-upgrade -y
+      sudo apt autoremove -y
+      ```
 5. Upgrate the Linux kernel to the latest LTS Enablement for Hardware Enablement (HWE) stack level:
    - Check the kernel version:
    ```bash
