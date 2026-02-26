@@ -69,13 +69,14 @@ All the following tasks are to be performed in the ubuntu virtual machine, unles
       ```
    enter password and then you will log into the VM
 3. Setup the public key authentification for the host to SSH into the VM:
-   - In host PowerShell:
+   - In host PowerShell, do:
       ```bash
       ssh-keygen -t ed25519
       ```
    - This creates:
       - Public key: ~/.ssh/id-ed25519
       - Private key: ~/.ssh/id_ed25519.pub
+   - Copy the contents in the public key, SSH into the VM using password, and paste the contents into ~/.ssh/authorized_keys
 5. 
 6. 
 
