@@ -56,7 +56,7 @@ All the following tasks are to be performed in the ubuntu virtual machine, unles
    sudo systemctl start ssh
    ```
 2. Setup NAT port forwarding to enable SSH from host:
-   \newline
+   <br>
    In VirtualBox -> Settings -> Network -> Port Forwarding, add rule:
       - Name: SSH
       - Protocol: TCP
