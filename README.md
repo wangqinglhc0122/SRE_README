@@ -62,11 +62,10 @@ All the following tasks are to be performed in the ubuntu virtual machine, unles
       - Host IP: 127.0.0.1
       - Host Port: 2222
       - Guest Port: 22
-   <br>Then open PowerShell on the host and SSH into the VM using:
+   <br> Then open PowerShell on the host and SSH into the VM using:
       ```bash
       ssh wangqinglhc0122@127.0.0.1 -p 2222
       ```
-   <br>
    enter password and then you will log into the VM
 3. 
 4. 
