@@ -54,7 +54,7 @@ All the following tasks are to be performed in the ubuntu virtual machine, unles
    sudo apt install -y openssh-server
    sudo systemctl enable ssh
    sudo systemctl start ssh
-   '''
+   
 3. 
 
 What is host machine and host machine?
