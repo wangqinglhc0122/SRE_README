@@ -664,7 +664,72 @@ Publish the procedure to the git repo.
                  kubernetes.io/os: linux
         ```
       - Apply and verify:
-           
+         ```bash
+         kubectl apply -f ~/go-web-hello-world/k8s/headlamp/headlamp-nodeport-31081.yaml
+
+         kubectl -n kube-system rollout status deploy/headlamp
+         kubectl -n kube-system get svc headlamp
+         kubectl -n kube-system get pods -l k8s-app=headlamp -o wide
+         ```
+         From the VM, test:
+            ```bash
+            curl -k https://localhost:31081/
+            ```
+
+4. Setup Port Forwarding to let the host access Headlamp:
+  <br>In VirtualBox -> Settings -> Network -> Port Forwarding, add rule:
+   - Name: Headlamp
+   - Protocol: TCP
+   - Host IP: 127.0.0.1
+   - Host Port: 31081
+   - Guest Port: 31081
+5. Generate a token to login:
+   - Create an admin ServiceAccount + ClusterRoleBinding (demo-only), create ~/go-web-hello-world/k8s/headlamp/headlamp-admin-rbac.yaml with:
+     ```yaml
+      apiVersion: v1
+      kind: ServiceAccount
+      metadata:
+        name: headlamp-admin
+        namespace: kube-system
+      ---
+      apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: headlamp-admin-cluster-admin
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: cluster-admin
+      subjects:
+        - kind: ServiceAccount
+          name: headlamp-admin
+          namespace: kube-system
+     ```
+     ```bash
+      kubectl apply -f ~/go-web-hello-world/k8s/headlamp/headlamp-admin-rbac.yaml
+     ```
+   - Generate token:
+      ```bash
+      kubectl -n kube-system create token headlamp-admin
+      ```
+6. Open https://localhost:31081 in the Windows host and use the generated tokeb to login
+7. Check the files to git:
+   ```bash
+   cd ~/go-web-hello-world
+
+   # Add manifests and (optionally) store the OpenSSL command in docs.
+   git add k8s/headlamp/headlamp-nodeport-31081.yaml \
+           k8s/headlamp/headlamp-admin-rbac.yaml \
+           kind-config.yaml
+           # IMPORTANT: do NOT commit headlamp.key or the TLS secret.
+   # If you generated headlamp.key/crt locally, keep them untracked:
+   echo "k8s/headlamp/headlamp.key" >> .gitignore
+   echo "k8s/headlamp/headlamp.crt" >> .gitignore
+   git add .gitignore
+   
+   git commit -m "Add Headlamp (YAML) with NodePort 31081 + kind port mappings + admin RBAC"
+   git push origin master
+   ```
 
 ## **Task 10: Build Gogs container image and push it to a container registry**
 
