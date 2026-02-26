@@ -35,8 +35,13 @@ The candidate shall prepare the following environment for the interview:
  ### Setup the Ubuntu Server VM on the Windows laptop:
 1. Download and install the hypervisor VirtualBox: https://www.virtualbox.org/
 2. Download the latest Ubuntu Server 64-bit version: https://releases.ubuntu.com/noble/
-3. Third item
-4. Fourth item
+3. Create the VM with:
+   - 4 x vCPUs and 8GB RAM
+   - 40GB for the disk
+   - Attach the downloaded Ubuntu Server ISO file
+   - Choose NAT for VM network in VM -> Settings -> Network
+   - Setup username and password
+4. 
     
 ---
 
