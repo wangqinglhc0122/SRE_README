@@ -756,6 +756,9 @@ Expect that a single docker run command from consumer (assuming docker is availa
 docker run <parameters ... > <image:tag>
 ```
 
+---
+1. 
+
 ## **Task 99: Publish your work**
 
 Please send the dockerhub repo or ARM docker repo link to the hiring manager or recruiter.
