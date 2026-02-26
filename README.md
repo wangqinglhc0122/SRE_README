@@ -12,35 +12,6 @@
 - [Task 10: Build Gogs container image and push it to a container registry](#task-10-build-gogs-container-image-and-push-it-to-a-container-registry)
 - [Task 99: Publish your work](#task-99-publish-your-work)
 
-## Interview Approaches
-
-There are two approaches to conduct this interview:
-
-### **1.  Interview First**
-
-Schedule the hands-on session first. Ask the candidate to complete "Task 0" as a prerequisite.
-
-During the interview session (60 minutes), the candidate shall
-
-*   share his/her computer's desktop for demonstration
-*   complete as many tasks as possible to demonstrate the technical competence
-*   feel free to reference any materials or search engines
-*   ask questions or seek for help at any time
-
-After the interview session, the candidate will have two calendar days to complete all the tasks, well document the procedure in a professional engineering way and send the deliverables to the hiring manager or recruiter.
-
-### **2.  Project First**
-
-Send all tasks to the candidate, who shall complete all tasks, well document the procedure in a professional engineering way and send the deliverables to the hiring manager or recruiter prior to the interview session. The days given to the candidate can be flexible, based on different background, experience and applied position.
-
-During the interview session (60 minutes), the candidate shall
-
-*   share his/her computer's desktop for demonstration
-*   present his/her completion in the live environment (can ommit the time consuming part, e.g. reboot a machine)
-*   answer any technical questions or perform additional ad-hoc tasks if being asked
-
-After the interview session, if there is any follow-up action required, the candidate shall get back in the agreed time window.   
-
 ## **Task 0: Preparation for the Interview Environment**
 
 The candidate shall prepare the following environment for the interview:
