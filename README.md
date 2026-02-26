@@ -553,8 +553,118 @@ Figure out how to generate a token to login to the dashboard.
 Publish the procedure to the git repo.
 
 ---
-1. 
+1. Recreate kind cluster with port mappings:
+   ```bash
+   cat > kind-config.yaml <<'EOF'
+   kind: Cluster
+   apiVersion: kind.x-k8s.io/v1alpha4
+   nodes:
+   - role: control-plane
+     extraPortMappings:
+     - containerPort: 31080
+       hostPort: 31080
+       protocol: TCP
+     - containerPort: 31081
+       hostPort: 31081
+       protocol: TCP
+   EOF
 
+   kind delete cluster --name demo-cluster
+   kind create cluster --name demo-cluster --config kind-config.yaml
+   kubectl cluster-info
+   kubectl get nodes -o wide
+   ```
+2. Install Headlamp via YAML and expose NodePort 31081 (HTTPS):
+   - Create a self-signed cert for localhost:
+      ```bash
+      mkdir -p ~/go-web-hello-world/k8s/headlamp
+      cd ~/go-web-hello-world/k8s/headlamp
+      
+      openssl req -x509 -nodes -newkey rsa:2048 \
+        -keyout headlamp.key \
+        -out headlamp.crt \
+        -days 365 \
+        -subj "/CN=localhost" \
+        -addext "subjectAltName=DNS:localhost,IP:127.0.0.1"
+      ```
+   - Create TLS secret in kybe-system:
+        ```bash
+        kubectl -n kube-system create secret tls headlamp-tls \
+        --cert=headlamp.crt \
+        --key=headlamp.key
+        ```
+   - Create k8s/headlamp/headlamp-nodeport-31081.yaml with:
+        ```yaml
+         apiVersion: v1
+         kind: Service
+         metadata:
+           name: headlamp
+           namespace: kube-system
+         spec:
+           type: NodePort
+           selector:
+             k8s-app: headlamp
+           ports:
+             - name: https
+               port: 443
+               targetPort: 4466
+               nodePort: 31081
+         ---
+         apiVersion: apps/v1
+         kind: Deployment
+         metadata:
+           name: headlamp
+           namespace: kube-system
+         spec:
+           replicas: 1
+           selector:
+             matchLabels:
+               k8s-app: headlamp
+           template:
+             metadata:
+               labels:
+                 k8s-app: headlamp
+             spec:
+               containers:
+                 - name: headlamp
+                   image: ghcr.io/headlamp-k8s/headlamp:latest
+                   args:
+                     - "-in-cluster"
+                     - "-plugins-dir=/headlamp/plugins"
+                     - "-tls-cert-path=/certs/tls.crt"
+                     - "-tls-key-path=/certs/tls.key"
+                   ports:
+                     - containerPort: 4466
+                       name: https
+                     - containerPort: 9090
+                       name: metrics
+                   volumeMounts:
+                     - name: tls
+                       mountPath: /certs
+                       readOnly: true
+                   readinessProbe:
+                     httpGet:
+                       scheme: HTTPS
+                       path: /
+                       port: 4466
+                     initialDelaySeconds: 30
+                     timeoutSeconds: 30
+                   livenessProbe:
+                     httpGet:
+                       scheme: HTTPS
+                       path: /
+                       port: 4466
+                     initialDelaySeconds: 30
+                     timeoutSeconds: 30
+               volumes:
+                 - name: tls
+                   secret:
+                     secretName: headlamp-tls
+               nodeSelector:
+                 kubernetes.io/os: linux
+        ```
+      - Apply and verify:
+           
 
 ## **Task 10: Build Gogs container image and push it to a container registry**
 
