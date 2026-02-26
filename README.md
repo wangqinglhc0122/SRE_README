@@ -14,11 +14,25 @@ The purpose is to test if a candidate has the fundamental engineering skills/min
 
 It is also a mini working dry run for the candidate to experience and self-reflect if this is the right fit.
 
-## Table of Contents
+# Table of Contents
 
-- [Task 0 – Preparation](#Task 0: Preparation for the Interview Environment)
-- [Task 1 – SSH & Upgrade](#task-1--ssh--upgrade)
-- [Task 2 – Install Docker](#task-2--install-docker)
+## Interview Modes
+- [Interview First](#interview-first)
+- [Project First](#project-first)
+
+## Tasks
+- [Task 0 – Preparation for the Interview Environment](#task-0--preparation-for-the-interview-environment)
+- [Task 1 – SSH & Upgrade Operating System](#task-1--ssh--upgrade-operating-system)
+- [Task 2 – Install Docker Engine](#task-2--install-docker-engine)
+- [Task 3 – Install Gogs](#task-3--install-gogs-a-self-hosted-git-service)
+- [Task 4 – Create Demo Organization/Repository in Gogs](#task-4--create-a-demo-organizationrepository-in-gogs)
+- [Task 5 – Install a Single Node Kubernetes Cluster Using Kind](#task-5--install-a-single-node-kubernetes-cluster-using-kind)
+- [Task 6 – Build and Run a Golang Web Application](#task-6--build-and-run-a-golang-web-application)
+- [Task 7 – Run the App in Container](#task-7--run-the-app-in-container)
+- [Task 8 – Deploy the Hello World Container Image in Kubernetes](#task-8--deploy-the-hello-world-container-image-in-kubernetes)
+- [Task 9 – Install Kubernetes Dashboard](#task-9--install-kubernetes-dashboard)
+- [Task 10 – Build Gogs Container Image and Push to Registry](#task-10--build-gogs-container-image-and-push-to-a-container-registry)
+- [Task 99 – Publish Your Work](#task-99--publish-your-work)
 
 ## Interview Approaches
 
