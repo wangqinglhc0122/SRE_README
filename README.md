@@ -167,6 +167,19 @@ Expect output: Gogs is up and running at the guest machine, listening to port 31
 
 Open a browser in host machine and access gogs via [http://localhost:3100](http://localhost:3100)
 
+1. Create gogs directory:
+   ```bash
+   mkdir -p ~/gogs
+   cd ~/gogs
+   ```
+2. Run gogs container with:
+   ```bash
+   docker run -d --name=gogs -p 3100:3000 -v ~/gogs:/data --restart=always gogs/gogs
+   ```
+   - Guest port 3100 -> container port 3000
+   - DB stored in /data
+   - Persistent volume mounted at ~/gogs
+
 _Is the port 3100 of the guest machine accessible from the host machine? If not, what configuration is required in order to expose it?_
 
 For the first time, configure it following the installation steps 
