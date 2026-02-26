@@ -68,9 +68,16 @@ All the following tasks are to be performed in the ubuntu virtual machine, unles
       ssh wangqinglhc0122@127.0.0.1 -p 2222
       ```
    enter password and then you will log into the VM
-3. 
-4. 
+3. Setup the public key authentification for the host to SSH into the VM:
+   - In host PowerShell:
+      ```bash
+      ssh-keygen -t ed25519
+      ```
+   - This creates:
+      - Public key: ~/.ssh/id-ed25519
+      - Private key: ~/.ssh/id_ed25519.pub
 5. 
+6. 
 
 _What is host machine and guest machine?_
 
