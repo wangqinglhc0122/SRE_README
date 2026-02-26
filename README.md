@@ -179,8 +179,21 @@ Open a browser in host machine and access gogs via [http://localhost:3100](http:
    - Guest port 3100 -> container port 3000
    - DB stored in /data
    - Persistent volume mounted at ~/gogs
+3. Setup port forwarding to let the host access gogs:
+  <br>In VirtualBox -> Settings -> Network -> Port Forwarding, add rule:
+   - Name: Gogs
+   - Protocol: TCP
+   - Host IP: 127.0.0.1
+   - Host Port: 3100
+   - Guest Port: 3100
+   <br>Now the host can access gogs via:
+   ```bash
+   http://localhost:3100/
+   ```
 
-_Is the port 3100 of the guest machine accessible from the host machine? If not, what configuration is required in order to expose it?_
+_Q:Is the port 3100 of the guest machine accessible from the host machine? If not, what configuration is required in order to expose it?_
+<br>
+<br>A: No. Wee need to setup the Port Forwarding following step 3 above.
 
 For the first time, configure it following the installation steps 
 
