@@ -174,12 +174,13 @@ Open a browser in host machine and access gogs via [http://localhost:3100](http:
    ```
 2. Run gogs container with:
    ```bash
-   docker run -d --name=gogs -p 3100:3000 -v ~/gogs:/data --restart=always gogs/gogs
+   docker run -d --name=gogs -p 3100:3000  -p 10022:22 -v ~/gogs:/data --restart=unless-stopped gogs/gogs
    ```
    - Guest port 3100 -> container port 3000
+   - SSH ports: guest port 10022 -> container port 22
    - DB stored in /data
    - Persistent volume mounted at ~/gogs
-3. Setup port forwarding to let the host access gogs:
+3. Setup Port Forwarding to let the host access gogs:
   <br>In VirtualBox -> Settings -> Network -> Port Forwarding, add rule:
    - Name: Gogs
    - Protocol: TCP
@@ -187,13 +188,30 @@ Open a browser in host machine and access gogs via [http://localhost:3100](http:
    - Host Port: 3100
    - Guest Port: 3100
    <br>Now the host can access gogs via:
-   ```bash
-   http://localhost:3100/
-   ```
+      ```bash
+      http://localhost:3100/
+      ```
+4. Configure gogs:
+   - Database Type: SQLite3
+   - Path: data/gogs.db
+   - Domain: localhost
+   - Application URL: http://localhost:3100/
+   - SSH Port: 22
+   - HTTP Port: 3100
+   - Create admin user:
+      - Username: root
+      - Password: 123456
+      - Email: root@example.com
+5. Add SSH key to Gogs:
+   - Copy SSH key contents in:
+      ```bash
+      ~/.ssh/id_rsa.pub
+      ```
+   - In Gogs -> Settings -> SSH Keys -> Add key, create a SSH key and paste the contents
 
 _Q:Is the port 3100 of the guest machine accessible from the host machine? If not, what configuration is required in order to expose it?_
 <br>
-<br>A: No. Wee need to setup the Port Forwarding following step 3 above.
+<br>A: No. We need to setup the Port Forwarding following step 3 above.
 
 For the first time, configure it following the installation steps 
 
@@ -209,6 +227,25 @@ Initiate the repo with a README.md and push the commit to master
 
 Expected output: [http://localhost:3100/demo/go-web-hello-world](http://localhost:3100/demo/go-web-hello-world) 
 
+1. On the host, open in web browser:
+   ```bash
+   http://localhost:3100
+   ```
+   Login using:
+      - Username: root
+      - Password: 123456
+2. In Dashboard -> Organizations, click + and create a orgnization called demo
+3. Then create a repository inside demo called go-web-hello-world
+4. In the VM, clone the repository:
+   ```bash
+   git clone ssh://git@localhost:10022/demo/go-web-hello-world.git
+   ```
+5. Create README.md file and commit it to master branch:
+   ```bash
+   git add README.md
+   git commit -m "Add README"
+   git push origin master
+   ```
 ## **Task 5: Install a Single Node Kubernetes Cluster Using Kind**
 
 Follow instruction at [https://kind.sigs.k8s.io/docs/user/quick-start/](https://kind.sigs.k8s.io/docs/user/quick-start/).
@@ -222,6 +259,27 @@ Get cluster info, node info and list all pods in the cluster.
 Check-in the kubeconfig file (~/.kube/config) into the gogs git repo. 
 
 ---
+
+1. Install kind using stable binary:
+   ```bash
+   curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.22.0/kind-linux-amd64
+   chmod +x ./kind
+   sudo mv ./kind /usr/local/bin/kind
+   kind version
+   ```
+2. Install kubectl:
+   ```bash
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+   chmod +x kubectl
+   sudo mv kubectl /usr/local/bin/
+   kubectl version --client
+   ```
+3. Create a single node Kubernetes cluster using kind:
+   ```bash
+   kind create cluster --name demo-cluster
+   kubectl cluster-info
+   kubectl get nodes -o wide
+   ```
 
 ## **Task 6: Build and Run a Golang Web Application**
 
