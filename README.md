@@ -152,6 +152,7 @@ Install and setup Docker:
       ```
       
 _Q: What are the relationships of the three components in Docker Engine, aka. docker-ce docker-ce-cli and containerd.io?_
+<br>
 <br>A: Docker-ce installs dockerd, the Docker Daemon which is like the brain of Docker, it listens to the docker-ce-cli requests, manages the images and networks and talks to containerd.
 <br>Docker-ce-cli is the remote control which sends HTTP requests to the Docker Daemon.
 <br>Containerd.io is the runtime manager, which pulls images and magage container lifecycle, manages low-level container operations. It is used by Kubernetes
