@@ -1,18 +1,4 @@
-This is a hands-on project for an EWS SRE interview.
-
-Knowledge points which may be covered, but not limited to:
-
-*   Virtualization and container technology
-*   Ubuntu Linux administration and operation
-*   Physical, Virtual, Container network management
-*   Container administration and operation
-*   Kuberenetes administration and operation
-*   Git operation basis
-*   Golang web programing basis
-
-The purpose is to test if a candidate has the fundamental engineering skills/mindsets for an SRE position, or/and the self-learning abilities (quick, accurate, by just-do-it/show-me-the-code style) if the candidate is inexperienced in one or more areas.
-
-It is also a mini working dry run for the candidate to experience and self-reflect if this is the right fit.
+# A hands-on project for an EWS SRE
 
 # Table of Contents
 
