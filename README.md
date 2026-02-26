@@ -76,9 +76,12 @@ All the following tasks are to be performed in the ubuntu virtual machine, unles
    - This creates:
       - Public key: ~/.ssh/id-ed25519
       - Private key: ~/.ssh/id_ed25519.pub
-   - Copy the contents in the public key, SSH into the VM using password, and paste the contents into ~/.ssh/authorized_keys
-5. 
-6. 
+   - Copy the contents in the public key, SSH into the VM using password, and paste the contents into ~/.ssh/authorized_keys in the VM
+   - Then, in the host PowerShell, you can SSH into the VM without password anymore:
+      ```bash
+      ssh wangqinglhc0122@127.0.0.1 -p 2222
+      ```
+ 
 
 _What is host machine and guest machine?_
 
