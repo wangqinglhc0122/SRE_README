@@ -31,6 +31,8 @@ The candidate shall prepare the following environment for the interview:
     *   Ubuntu distribution: [https://releases.ubuntu.com/24.04/](http://releases.ubuntu.com/22.04/)
     *   sshd must be installed and enabled for ssh access
     *   docker/container runtime and golang can be pre-installed to save time
+
+ 
     
 ---
 
