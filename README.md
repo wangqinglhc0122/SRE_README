@@ -56,15 +56,13 @@ All the following tasks are to be performed in the ubuntu virtual machine, unles
    sudo systemctl start ssh
    ```
 2. Setup NAT port forwarding to enable SSH from host:
-   <br>
-   In VirtualBox -> Settings -> Network -> Port Forwarding, add rule:
+   <br> In VirtualBox -> Settings -> Network -> Port Forwarding, add rule:
       - Name: SSH
       - Protocol: TCP
       - Host IP: 127.0.0.1
       - Host Port: 2222
       - Guest Port: 22
-   <br>
-   Then open PowerShell on the host and SSH into the VM using:
+   <br>Then open PowerShell on the host and SSH into the VM using:
       ```bash
       ssh wangqinglhc0122@127.0.0.1 -p 2222
       ```
