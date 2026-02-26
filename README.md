@@ -280,6 +280,19 @@ Check-in the kubeconfig file (~/.kube/config) into the gogs git repo.
    kubectl cluster-info
    kubectl get nodes -o wide
    ```
+4. List all pods:
+   ```bash
+   kubectl get pods -A
+   ```
+5. Check the ~/.kube/config file to the gogs git repo:
+   ```bash
+   cp ~/.kube/config kubeconfig
+   git add kubeconfig
+   git commit -m "Add kubeconfig for kind cluster"
+   git push origin master
+   ```
+
+Final architecture: Windows Host -> VirtualBox NAT -> Ubuntu VM -> Docker -> Kind -> Kubernetes single-node cluster
 
 ## **Task 6: Build and Run a Golang Web Application**
 
@@ -296,7 +309,61 @@ Expect output (from guest machine):
 curl http://localhost:8081
 Go Web Hello World!
 ```
+---
+1. In the VM, go to the repo:
+   ```bash
+   cd ~/go-web-hello-world
+   ```
+2. Create a main.go file with:
+   ```Go
+   package main
 
+   import (
+   	"fmt"
+   	"log"
+   	"net/http"
+   )
+   
+   func main() {
+   	mux := http.NewServeMux()
+   	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+   		fmt.Fprintln(w, "Hello, World!")
+   	})
+   
+   	addr := ":8081"
+   	log.Printf("Listening on %s\n", addr)
+   	log.Fatal(http.ListenAndServe(addr, mux))
+   }
+   ```
+3. Add a go.mod to make it a real module:
+   ```bash
+   go mod init demo/go-web-hello-world
+   go mod tidy
+   ```
+4. Buid with Go:
+   ```bash
+   go build -o go-web-hello-world .
+   ```
+   and it will produce a runable binary: go-web-hello-world
+5. Run the binary and verify output:
+   ```bash
+   ./go-web-hello-world
+   ```
+   it will output: Listening on :8081
+   <br>Open another PowerShell on host and SSH into VM and verify the output:
+   ```bash
+   ssh wangqinglhc0122@127.0.0.1 -p 2222
+   curl -s http://127.0.0.1:8081/
+   ```
+   it should print: Hello, World!
+6. Check in code to the gogs repo master branch, add .gitignore file:
+   ```bash
+   git status
+   echo "go-web-hello-world" >> .gitignore
+   git add main.go go.mod .gitignore
+   git commit -m "Add Go hello world web app on 8081"
+   git push origin master
+   ```
 ## **Task 7: Run the App in Container**
 
 Build a docker image ($ docker build) for the web app, tag it go-app:latest ($ docker tag) and run it in a container ($ docker run), expose the service to 8082 (-p)
@@ -310,7 +377,81 @@ Expect output (from guest machine):
 curl http://localhost:8082
 Go Web Hello World!
 ```
-What is the size of the container image? Can it be optimized? If yes, how? Can you please make it less than 10MB? Check in the optimized Dockerfile into git repo.
+
+---
+1. In the repo root ~/go-web-hello-world, create Dockerfile with:
+   ```dockerfile
+   FROM golang:1.22
+
+   WORKDIR /app
+   COPY . .
+   
+   RUN go mod tidy
+   RUN go build -o server .
+   
+   EXPOSE 8081
+   CMD ["/app/server"]
+   ```
+2. Build the image using tag: go-app:latest:
+   ```bash
+   docker build -t go-app:latest .
+   ```
+3. Run and expose to port 8082:
+   ```bash
+   docker run --rm -p 8082:8081 --name go-app go-app:latest
+   ```
+4. Verify from another terminal in VM:
+   ```bash
+   curl -s http://localhost:8082
+   ```
+   it should print: Hello, World!
+5. Check in the Dockerfile to git:
+   ```bash
+   git add Dockerfile main.go
+   git commit -m "Add Dockerfile to run Go web app in container"
+   git push origin master
+   ```
+6. Check the image size:
+   ```bash
+   docker images | grep go-app
+   ```
+   the size is 1.32GB
+7. Optimized the image size by creating Dockerfile.optimized with:
+   ```dockerfile
+   # ---- build stage ----
+   FROM golang:1.22 AS build
+   WORKDIR /src
+   
+   COPY go.mod ./
+   # go.sum might not exist; that's fine
+   COPY . .
+   
+   # Build a small static binary
+   RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+       go build -trimpath -ldflags="-s -w" -o /out/server .
+   
+   # ---- runtime stage ----
+   FROM scratch
+   COPY --from=build /out/server /server
+   EXPOSE 8081
+   ENTRYPOINT ["/server"]
+   ```
+   and build the image:
+   ```bash
+   docker build -f Dockerfile.optimized -t go-app:optimized .
+   ```
+   The optimized image has size 7MB.
+8. Check the Dockerfile.optimized to git:
+   ```bash
+   git add Dockerfile.optimized
+   git commit -m "Add optimized multi-stage Dockerfile (<10MB scratch image)"
+   git push origin master
+   ```
+_Q: What is the size of the container image? Can it be optimized? If yes, how? Can you please make it less than 10MB? Check in the optimized Dockerfile into git repo._
+<br>
+<br>A: The size is 1.32GB. We can optimize using multi-stage build and a scratch final image with a static, stripped binary. The optimized size is 7MB.
+
+
 
 ## **Task 8: Deploy the Hello World Container Image in Kubernetes**
 
@@ -327,6 +468,8 @@ Go Web Hello World!
 Check in the deployment yaml file or the command line into the git repo
 
 ---
+
+
 
 ## **Task 9: Install Kubernetes Dashboard**
 
