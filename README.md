@@ -48,6 +48,15 @@ All the following tasks are to be performed in the ubuntu virtual machine, unles
 
 ## **Task 1: SSH & Upgrade Operating System**
 
+1. Setup and enable SSH for remote login
+   '''bash
+   sudo apt update
+   sudo apt install -y openssh-server
+   sudo systemctl enable ssh
+   sudo systemctl start ssh
+   '''
+3. 
+
 What is host machine and host machine?
 
 Use an ssh client in the host machine to ssh to the guest machine using public key authentication method.
