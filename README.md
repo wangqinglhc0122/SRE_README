@@ -1,5 +1,4 @@
-# A hands-on project for an EWS SRE including these steps:
-## Tasks
+# A hands-on project for an EWS SRE including these tasks:
 - [Task 0: Preparation for the Interview Environment](#task-0-preparation-for-the-interview-environment)
 - [Task 1: SSH & Upgrade Operating System](#task-1-ssh--upgrade-operating-system)
 - [Task 2: Install Docker Engine](#task-2-install-docker-engine)
