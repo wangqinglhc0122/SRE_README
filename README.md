@@ -32,7 +32,8 @@ The candidate shall prepare the following environment for the interview:
     *   sshd must be installed and enabled for ssh access
     *   docker/container runtime and golang can be pre-installed to save time
 
- 
+ Setup the Ubuntu Server VM on the Windows laptop:
+ 1. Download and install the hypervisor VirtualBox. [https://www.virtualbox.org/](https://www.virtualbox.org/)
     
 ---
 
