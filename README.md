@@ -103,7 +103,7 @@ All the following tasks are to be performed in the ubuntu virtual machine, unles
       ```
 ---      
 _What is host machine and guest machine?_
-The host machine is the physical computer, my Windows laptop, which runs the hypervisor.
+<br>The host machine is the physical computer, my Windows laptop, which runs the hypervisor.
 The guest machine is the VM running Ubuntu inside the hypervisor.
 
 Use an ssh client in the host machine to ssh to the guest machine using public key authentication method.
